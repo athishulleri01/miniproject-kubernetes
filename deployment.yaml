@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miniproject-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: miniproject
+  template:
+    metadata:
+      labels:
+        app: miniproject
+    spec:
+      containers:
+      - name: miniproject-backend
+        image: athishulleri/miniproject-image:latest  # Replace with your Docker image name
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DJANGO_SETTINGS_MODULE
+          value: "miniproject.settings"
+        - name: DATABASE_ENGINE
+          value: "django.db.backends.postgresql"
+        - name: DATABASE_NAME
+          value: "miniproject"
+        - name: DATABASE_USER
+          value: "postgres"
+        - name: DATABASE_PASSWORD
+          value: "postgres"
+        - name: DATABASE_HOST
+          value: "miniproject-db"
+        - name: DATABASE_PORT
+          value: "5432"
+
+
+
+# # deployment.yaml
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: miniproject-backend
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: miniproject-backend
+#   template:
+#     metadata:
+#       labels:
+#         app: miniproject-backend
+#     spec:
+#       containers:
+#         - name: backend
+#           image: athishulleri/miniproject-backend:latest
+#           command: ["/bin/sh"]
+#           args: ["-c", "tail -f /dev/null"]
+#           ports:
+#             - containerPort: 8000
+#           envFrom:
+#             - configMapRef:
+#                 name: backend-config
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: django-app
+# spec:
+#   replicas: 3
+#   selector:
+#     matchLabels:
+#       app: django-app
+#   template:
+#     metadata:
+#       labels:
+#         app: django-app
+#     spec:
+#       containers:
+#         - name: django-app
+#           image: your-image-name:tag
+#           ports:
+#             - containerPort: 8000
