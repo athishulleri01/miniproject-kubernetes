@@ -8,3 +8,4 @@ data:
   DJANGO_SUPERUSER_EMAIL: admin@example.com
   DJANGO_SUPERUSER_PASSWORD: admin
   # Add other environment variables as needed
+  # Tou can use password in the form of encoded
